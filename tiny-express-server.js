@@ -27,6 +27,16 @@ app.use(cors({
   credentials: true,
 }));
 
+// "Login" sets a cookie (we set SameSite=None to allow cross-site sending for demo)
+app.get('/login', (req, res) => {
+  res.cookie('session', 'victim-session-abc', {
+    httpOnly: true,     // realistic: HttpOnly so JS cannot read it
+    sameSite: 'None',   // allow cross-site sending for the demo
+    secure: true   
+  });
+  res.send('Logged in locally. Cookie set.');
+});
+
 // Transfer endpoint
 app.post('/transfer', (req, res) => {
   console.log('--- /transfer called ---');
@@ -37,7 +47,10 @@ app.post('/transfer', (req, res) => {
 
 // Help page
 app.get('/', (req, res) => {
-  res.send("<h3>BETA CSRF MITIGATION POC, hosted on http://localhost:3000</h3>");
+  res.send(`
+  <h3>BETA CSRF MITIGATION POC, hosted on http://localhost:3000</h3>
+  <p>Visit <a href="/login">/login</a> to set cookie</p>
+  `);
 });
 
 app.listen(3000, () => console.log('POC server running on http://localhost:3000'));

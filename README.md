@@ -1,7 +1,7 @@
 # BETA-CSRF-MITIGATION-POC
 
 **Purpose**  
-Proof-of-concept showing a *strict CORS origin allowlist + origin-required check* for sensitive endpoints as a CSRF mitigation approach. Intended to **prevent** CSRF risk in controlled/local demos.
+Proof-of-concept showing a *strict CORS origin allowlist + origin-required check* for sensitive endpoints as a CSRF mitigation approach. Intended to **prevent** CSRF risk in controlled/local demos even if cookie is set with **SameSite: "None"**.
 
 ## How it works (concise)
 - Only allows requests from `http://localhost:3000` (origin allowlist).
